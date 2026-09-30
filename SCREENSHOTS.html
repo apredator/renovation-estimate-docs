@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Скриншоты — Смета ремонта</title>
+<meta name="description" content="Документы приложения «Смета ремонта»: политика конфиденциальности, поддержка, материалы для App Store.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">Смета ремонта</a>
+  <nav>
+        <a href="index.html">Документы</a>
+        <a href="PRIVACY_POLICY.html">Политика конфиденциальности</a>
+        <a href="SUPPORT.html">Поддержка</a>
+        <a href="AUDIT.html">Аудит</a>
+        <a href="PUBLISHING.html">Публикация</a>
+        <a href="ACCOUNT_SETUP.html">Настройка аккаунта Apple</a>
+        <a href="RELEASE_CHECKLIST.html">Чек-лист релиза</a>
+        <a href="APP_STORE_LISTING.html">Карточка приложения</a>
+        <a href="APP_PRIVACY.html">App Privacy</a>
+        <a href="SCREENSHOTS.html">Скриншоты</a>
+  </nav>
+</header>
+<main>
+<p>В этом каталоге лежат готовые скриншоты, снятые с собранного iOS-приложения (Capacitor, iOS 26.5 Simulator). Их можно загружать в App Store Connect как есть.</p><div class="table-wrap"><table>
+<thead><tr><th>Файл</th><th>Устройство</th><th>Размер</th><th>Что на экране</th></tr></thead>
+<tbody><tr><td><code>ios-6.9-main.png</code></td><td>iPhone 17 Pro Max (6,9″)</td><td>1320 × 2868</td><td>Главный экран: бюджет проекта, список помещений</td></tr>
+<tr><td><code>ios-6.9-room.png</code></td><td>iPhone 17 Pro Max (6,9″)</td><td>1320 × 2868</td><td>Помещение: размеры, площади, окна и двери</td></tr>
+<tr><td><code>ios-6.9-shopping.png</code></td><td>iPhone 17 Pro Max (6,9″)</td><td>1320 × 2868</td><td>Список покупок: упаковки, стоимость, итог</td></tr>
+<tr><td><code>ipad-13-main.png</code></td><td>iPad Pro 13″ (M5)</td><td>2064 × 2752</td><td>Главный экран на iPad</td></tr>
+<tr><td><code>ipad-13-room.png</code></td><td>iPad Pro 13″ (M5)</td><td>2064 × 2752</td><td>Помещение на iPad</td></tr>
+<tr><td><code>ipad-13-shopping.png</code></td><td>iPad Pro 13″ (M5)</td><td>2064 × 2752</td><td>Список покупок на iPad</td></tr></tbody>
+</table></div><h2 id="требования-apple-и-соответствие">Требования Apple и соответствие</h2><div class="table-wrap"><table>
+<thead><tr><th>Набор</th><th>Обязателен</th><th>Допустимые размеры</th><th>У нас</th></tr></thead>
+<tbody><tr><td>iPhone 6,9″</td><td>да</td><td>1290 × 2796, 1320 × 2868 (и их перевороты)</td><td>3 шт., 1320 × 2868</td></tr>
+<tr><td>iPad 13″</td><td>да, если поддерживается iPad (<code>TARGETED_DEVICE_FAMILY = "1,2"</code>)</td><td>2064 × 2752, 2752 × 2064</td><td>3 шт., 2064 × 2752</td></tr>
+<tr><td>iPhone 6,5″ / 6,7″</td><td>не нужен, если заполнен набор 6,9″</td><td>1242 × 2688, 1284 × 2778</td><td>не требуется</td></tr></tbody>
+</table></div><p>Минимум — 3 скриншота на набор, максимум — 10. Формат PNG или JPEG, без альфа-канала, цветовое пространство sRGB, без сильных искажений интерфейса. Устройство в кадре рисовать не нужно: App Store сам показывает макет устройства.</p><h2 id="подписи-для-app-store-connect">Подписи для App Store Connect</h2><p>Порядок и текст (русская локализация):</p><ol><li><code>ios-6.9-main.png</code> → «Смета по помещениям и бюджет проекта»</li><li><code>ios-6.9-room.png</code> → «Площади, окна и двери — всё учитывается»</li><li><code>ios-6.9-shopping.png</code> → «Список покупок: упаковки и стоимость»</li></ol><p>Для iPad-набора подписи те же. Английские варианты — в <code>docs/APP_STORE_LISTING.md</code>.</p><h2 id="как-проверить-скриншоты">Как проверить скриншоты</h2><pre data-language="bash"><code># размеры, палитра и признак того, что интерфейс отрисовался
+node scripts/verify-screenshot.mjs screenshots/ios-6.9-main.png</code></pre><p>Скрипт печатает размер, среднюю яркость, долю тёмного фона, светлого текста и акцентного цвета и падает с ошибкой, если экран пустой или белый.</p><h2 id="как-снять-скриншоты-заново">Как снять скриншоты заново</h2><pre data-language="bash"><code># 1. Собрать приложение и синхронизировать веб-часть
+npm run ios:sync
+
+# 2. Собрать для симулятора (подпись не нужна)
+xcodebuild -project ios/App/App.xcodeproj -scheme App -sdk iphonesimulator \
+  -configuration Debug -derivedDataPath "$PWD/ios/DerivedData" \
+  -clonedSourcePackagesDirPath "$PWD/ios/SpmCache" \
+  -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+# 3. Установить и запустить на нужном устройстве
+DEV=$(xcrun simctl list devices available | grep "iPhone 17 Pro Max" | grep -o "[0-9A-F-]\{36\}" | head -1)
+xcrun simctl boot "$DEV"
+xcrun simctl install "$DEV" ios/DerivedData/Build/Products/Debug-iphonesimulator/App.app
+xcrun simctl launch "$DEV" com.apredator.renovationestimate
+
+# 4. Снять экран (приложение должно быть на переднем плане)
+sleep 15
+xcrun simctl io "$DEV" screenshot screenshots/ios-6.9-main.png</code></pre><p>Важные детали:</p><ul><li><strong>Первый запуск после установки может показать пустой тёмный экран</strong> (стартует WebView). Если скриншот вышел пустым — перезапустите приложение и подождите 10–15 секунд: <code>xcrun simctl terminate "$DEV" com.apredator.renovationestimate &amp;&amp; xcrun simctl launch …</code>.</li><li>Экраны «Список покупок» и «Помещение» открываются нажатиями в симуляторе. Чтобы снять их без ручного тапа, можно временно поменять начальное состояние в <code>src/App.tsx</code> (<code>useState&lt;'estimate' | 'shopping'&gt;('estimate')</code> → <code>'shopping'</code> для списка покупок; <code>useState&lt;string | null&gt;(null)</code> → <code>useState&lt;string | null&gt;(() =&gt; project.rooms[0]?.id ?? null)</code> для редактора помещения), затем выполнить <code>npx vite build</code>, скопировать <code>dist</code> в <code>ios/DerivedData/Build/Products/Debug-iphonesimulator/App.app/public</code>, установить приложение и снять экран. <strong>После съёмки обязательно верните код и выполните <code>npm run ios:sync</code></strong> — иначе в сборку попадёт изменённое стартовое состояние.</li><li>Перед финальной отправкой имеет смысл переснять скриншоты с <strong>Release</strong>-сборки (<code>-configuration Release</code>) — так в кадр не попадут отладочные артефакты.</li><li>На скриншотах не должно быть того, чего в приложении нет: например, кнопки «Сохранить PDF» (в iOS-сборке она не показывается, потому что <code>window.print()</code> в WKWebView не работает).</li></ul>
+</main>
+<footer class="site">
+  <p>Смета ремонта — калькулятор материалов для ремонта. Данные хранятся только на устройстве.</p>
+  <p>Поддержка: <code>&lt;ЗАМЕНИТЕ: support@example.com&gt;</code></p>
+</footer>
+</body>
+</html>

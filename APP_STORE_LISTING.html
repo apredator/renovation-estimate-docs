@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карточка приложения — Смета ремонта</title>
+<meta name="description" content="Документы приложения «Смета ремонта»: политика конфиденциальности, поддержка, материалы для App Store.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">Смета ремонта</a>
+  <nav>
+        <a href="index.html">Документы</a>
+        <a href="PRIVACY_POLICY.html">Политика конфиденциальности</a>
+        <a href="SUPPORT.html">Поддержка</a>
+        <a href="AUDIT.html">Аудит</a>
+        <a href="PUBLISHING.html">Публикация</a>
+        <a href="ACCOUNT_SETUP.html">Настройка аккаунта Apple</a>
+        <a href="RELEASE_CHECKLIST.html">Чек-лист релиза</a>
+        <a href="APP_STORE_LISTING.html">Карточка приложения</a>
+        <a href="APP_PRIVACY.html">App Privacy</a>
+        <a href="SCREENSHOTS.html">Скриншоты</a>
+  </nav>
+</header>
+<main>
+<p>Версия документа: 1.0 (соответствует релизу приложения 1.0.0, сборка 1). Все значения ниже готовы к копированию в App Store Connect. Поля, помеченные <code>&lt;ЗАМЕНИТЕ: ...&gt;</code>, нужно заменить на реальные данные перед отправкой на ревью. Полный перечень плейсхолдеров — в последнем разделе документа.</p><p><strong>Кратко о продукте.</strong> «Смета ремонта» — офлайн-калькулятор строительных и отделочных материалов: размеры помещения, проёмы (двери и окна), работы (покраска, обои, плитка, напольное покрытие, плинтус) → площадь, расход с учётом запаса, количество упаковок/банок/рулонов и стоимость в рублях. Есть общий бюджет проекта и агрегированный список покупок, экспорт в CSV и резервная копия проекта в JSON-файл. Приложение бесплатное, без покупок и подписок, без рекламы и аналитики.</p><hr><h2 id="1-app-name-название">1. App Name (Название)</h2><p>Ограничение Apple — до 30 символов. Оба варианта укладываются в лимит.</p><p><strong>Основной вариант (13 символов):</strong></p><pre><code>Смета ремонта</code></pre><p><strong>Второй вариант (резерв, 26 символов):</strong></p><pre><code>Смета ремонта: калькулятор</code></pre><blockquote><p>Примечание: если выбран второй вариант, не дублируйте слова «смета», «ремонт», «калькулятор» в ключевых словах без необходимости — см. раздел «Keywords».</p></blockquote><hr><h2 id="2-subtitle-подзаголовок">2. Subtitle (Подзаголовок)</h2><p>Ограничение — до 30 символов (27 символов).</p><pre><code>Расчёт материалов и бюджета</code></pre><hr><h2 id="3-promotional-text-промотекст">3. Promotional Text (Промотекст)</h2><p>Ограничение — до 170 символов (168 символов). Промотекст можно обновлять без прохождения ревью.</p><pre><code>Материалы и бюджет ремонта в телефоне: комнаты, окна и двери, запас и итоговая стоимость. Без интернета, данные — только на устройстве. Экспорт в CSV и резервная копия.</code></pre><hr><h2 id="4-keywords-ключевые-слова">4. Keywords (Ключевые слова)</h2><p>Ограничения Apple: до 100 символов, через запятую, <strong>без пробелов после запятых</strong>, без повторения названия приложения и без названий конкурентов. Строка ниже — 99 символов. Слова «смета», «ремонт» и «калькулятор» намеренно не дублируются, так как они уже встречаются в названии и подзаголовке.</p><pre><code>калькулятор,стройматериалы,обои,плитка,краска,ламинат,плинтус,расход,площадь,бюджет,закупка,отделка</code></pre><hr><h2 id="5-description-описание-русский">5. Description (Описание, русский)</h2><p>Без HTML и без разметки Markdown — обычный текст с заголовками разделами и маркерами «•», как принято в App Store.</p><pre><code>Смета ремонта — это калькулятор, который превращает размеры комнаты в понятный
+список материалов и итоговую стоимость.
+
+Введите длину, ширину и высоту помещения, отметьте двери и окна — приложение
+посчитает площадь пола, стен и потолка, а также периметр. Затем добавьте нужные
+работы, и «Смета ремонта» рассчитает, сколько материалов понадобится с учётом
+запаса на подрезку, сколько это упаковок, банок или рулонов и во сколько
+обойдётся по вашим ценам.
+
+ЧТО УМЕЕТ ПРИЛОЖЕНИЕ
+
+• Площадь и периметр. Пол, стены, потолок и периметр комнаты — автоматически по
+  вашим размерам.
+• Проёмы. Двери и окна вычитаются из площади стен, поэтому обои и краска не
+  считаются «на лишние метры».
+• Работы и материалы. Покраска стен, обои, плитка, напольное покрытие и
+  плинтус — каждая позиция со своим расходом.
+• Запас на подрезку. Процент запаса задаёте вы: приложение увеличивает расход и
+  округляет до целых упаковок.
+• Количество упаковок. Показывает, сколько банок, рулонов или упаковок нужно
+  купить, а не только «сколько метров».
+• Цены и стоимость. Укажите цену за упаковку — получите стоимость по каждой
+  работе.
+• Бюджет проекта. Общая сумма по всем помещениям на одном экране.
+• Список покупок. Все материалы собраны в один агрегированный список — удобно
+  взять с собой в магазин.
+• Экспорт в CSV. Кнопка экспорта открывает системное меню «Поделиться»: файл
+  можно открыть в Numbers или Excel, сохранить в «Файлы» или отправить в
+  мессенджер. Разделитель «;», кодировка UTF-8 с BOM — Excel открывает файл
+  корректно. В файле есть строка «Проект» с названием проекта, колонки
+  «Материал», «Количество, шт.», «Упаковка», «Стоимость, ₽» и последняя строка
+  «Итого».
+• Несколько помещений. Считайте квартиру целиком: комнаты, кухня, санузел,
+  коридор.
+• Аккуратный ввод. Размеры — до 100 м, запас — до 100 %, цена — до 10 000 000 ₽;
+  дробную часть можно вводить через запятую.
+
+ДАННЫЕ ПОД ВАШИМ КОНТРОЛЕМ
+
+• Автосохранение. Каждое изменение сразу записывается на устройство: отдельной
+  кнопки «Сохранить» нет, и данные не теряются, если закрыть приложение сразу
+  после правки. Сметы, созданные в первой версии, переносятся автоматически.
+• Резервная копия. Кнопка «Скачать резервную копию» сохраняет весь проект в
+  JSON-файл, а «Загрузить из файла» восстанавливает его — например, на новом
+  телефоне или после переустановки. Если файл повреждён, приложение покажет
+  ошибку и ничего не изменит.
+• Удаление данных. Кнопка «Удалить данные» очищает всё на устройстве:
+  приложение попросит подтверждение, и отменить действие нельзя.
+• Версия и статус. Внизу главного экрана видно версию приложения, платформу и
+  напоминание, что расчёт ориентировочный.
+
+РАБОТАЕТ БЕЗ ИНТЕРНЕТА
+
+Приложение полностью работает офлайн. Ему не нужны ни сеть, ни регистрация, ни
+аккаунт: все расчёты выполняются на вашем устройстве.
+
+ДАННЫЕ ОСТАЮТСЯ У ВАС
+
+Всё, что вы вводите — названия помещений, размеры, материалы и цены, — хранится
+только на вашем устройстве. Приложение не отправляет данные на серверы, не
+содержит рекламы, аналитики и сторонних SDK и не запрашивает доступ к камере,
+геолокации, контактам или уведомлениям. Данные покидают устройство только тогда,
+когда вы сами нажмёте «Экспорт» или «Скачать резервную копию» и выберете, кому
+отправить файл. Удаление приложения удаляет и данные.
+
+ДЛЯ КОГО
+
+Для домашнего ремонта, для прораба и для небольшой бригады: быстро прикинуть
+материалы, проверить смету подрядчика и не купить лишнего.
+
+Важно: приложение считает по вашим размерам, расходу и ценам. Цены в магазинах и
+фактический расход могут отличаться — уточняйте их у продавца.</code></pre><hr><h2 id="6-what-s-new-что-нового-версия-1-0-0">6. What's New (Что нового, версия 1.0.0)</h2><pre><code>Первый выпуск «Сметы ремонта».
+
+• Расчёт площади пола, стен и потолка, а также периметра по размерам помещения.
+• Учёт дверей и окон: проёмы вычитаются из площади стен.
+• Работы и материалы: покраска стен, обои, плитка, напольное покрытие и плинтус.
+• Расход с заданным запасом и округление до целых упаковок, банок и рулонов.
+• Цены за упаковку и стоимость по каждой работе, общий бюджет проекта.
+• Агрегированный список покупок по всем помещениям.
+• Экспорт списка покупок в CSV через системное меню «Поделиться».
+• Резервная копия всего проекта в JSON-файл и восстановление из неё.
+• Автосохранение: каждое изменение сразу записывается на устройство.
+• Кнопка «Удалить данные» с подтверждением — полный сброс на устройстве.
+• Полностью офлайн-работа: без регистрации, рекламы и аналитики.</code></pre><hr><h2 id="7-category-категория">7. Category (Категория)</h2><div class="table-wrap"><table>
+<thead><tr><th>Поле</th><th>Значение</th></tr></thead>
+<tbody><tr><td>Primary Category</td><td>Utilities</td></tr>
+<tr><td>Secondary Category</td><td>Productivity</td></tr></tbody>
+</table></div><p>В русской локализации App Store Connect категории отображаются как «Утилиты» (основная) и «Продуктивность» (дополнительная).</p><hr><h2 id="8-age-rating-возрастной-рейтинг">8. Age Rating (Возрастной рейтинг)</h2><p>Ожидаемый результат — <strong>4+</strong>. Ниже — ответы на анкету возрастного рейтинга (актуальная форма App Store Connect, включая блок о возможностях приложения). Перед отправкой сверьтесь с формулировками в живой форме: Apple иногда переименовывает пункты, но ответы остаются теми же — «Нет» / «Нет».</p><div class="table-wrap"><table>
+<thead><tr><th>Вопрос анкеты</th><th>Ответ</th></tr></thead>
+<tbody><tr><td>Cartoon or Fantasy Violence (мультипликационное или фэнтези-насилие)</td><td>Нет</td></tr>
+<tr><td>Realistic Violence (реалистичное насилие)</td><td>Нет</td></tr>
+<tr><td>Prolonged Graphic or Sadistic Realistic Violence</td><td>Нет</td></tr>
+<tr><td>Profanity or Crude Humor (ненормативная лексика, грубый юмор)</td><td>Нет</td></tr>
+<tr><td>Mature or Suggestive Themes (взрослые или двусмысленные темы)</td><td>Нет</td></tr>
+<tr><td>Horror or Fear Themes (ужасы, темы страха)</td><td>Нет</td></tr>
+<tr><td>Medical or Treatment Information (медицинская информация)</td><td>Нет</td></tr>
+<tr><td>Alcohol, Tobacco, or Drug Use or References</td><td>Нет</td></tr>
+<tr><td>Gambling (азартные игры)</td><td>Нет</td></tr>
+<tr><td>Sexual Content or Nudity (сексуальный контент, нагота)</td><td>Нет</td></tr>
+<tr><td>Graphic Sexual Content and Nudity</td><td>Нет</td></tr>
+<tr><td>Contests, Sweepstakes, or Lotteries (конкурсы, лотереи)</td><td>Нет</td></tr>
+<tr><td>Unrestricted Web Access (неограниченный веб-доступ)</td><td>Нет</td></tr>
+<tr><td>Gambling with Real Currency (игры на реальные деньги)</td><td>Нет</td></tr>
+<tr><td>User-Generated Content (публикуемый пользовательский контент)</td><td>Нет</td></tr>
+<tr><td>Messaging and Chat (переписка и чаты)</td><td>Нет</td></tr>
+<tr><td>Advertising (реклама)</td><td>Нет</td></tr>
+<tr><td>Social Media (социальные функции)</td><td>Нет</td></tr>
+<tr><td>In-App Purchases (встроенные покупки)</td><td>Нет</td></tr>
+<tr><td>Age Assurance / Parental Controls (возрастная проверка)</td><td>Нет</td></tr>
+<tr><td><strong>Итоговый рейтинг</strong></td><td><strong>4+</strong></td></tr></tbody>
+</table></div><p>Пояснение для ревьюера (если потребуется): приложение не содержит контента, который мог бы повысить рейтинг; единственный пользовательский текст — названия помещений и материалов, которые хранятся локально и никуда не публикуются.</p><hr><h2 id="9-urls-copyright-версия-и-контакты">9. URLs, Copyright, версия и контакты</h2><div class="table-wrap"><table>
+<thead><tr><th>Поле App Store Connect</th><th>Значение</th></tr></thead>
+<tbody><tr><td>Support URL</td><td><code>https://apredator.github.io/renovation-estimate-docs/SUPPORT.html</code></td></tr>
+<tr><td>Marketing URL</td><td><code>https://apredator.github.io/renovation-estimate-docs/</code></td></tr>
+<tr><td>Privacy Policy URL</td><td><code>https://apredator.github.io/renovation-estimate-docs/PRIVACY_POLICY.html</code></td></tr>
+<tr><td>Copyright</td><td><code>© 2025 &lt;ЗАМЕНИТЕ: ИМЯ ВЛАДЕЛЬЦА ИЛИ КОМПАНИИ&gt;</code></td></tr>
+<tr><td>Version</td><td><code>1.0.0</code></td></tr>
+<tr><td>Build</td><td><code>1</code></td></tr>
+<tr><td>Bundle ID</td><td><code>&lt;ЗАМЕНИТЕ: com.apredator.renovationestimate&gt;</code></td></tr>
+<tr><td>Primary Language</td><td>Russian (ru)</td></tr>
+<tr><td>Seller / Developer Name</td><td><code>&lt;ЗАМЕНИТЕ: ИМЯ РАЗРАБОТЧИКА/ПРОДАВЦА В APP STORE&gt;</code></td></tr></tbody>
+</table></div><p>Ссылки для копирования:</p><pre><code>https://apredator.github.io/renovation-estimate-docs/SUPPORT.html</code></pre><pre><code>https://apredator.github.io/renovation-estimate-docs/</code></pre><pre><code>https://apredator.github.io/renovation-estimate-docs/PRIVACY_POLICY.html</code></pre><pre><code>© 2025 &lt;ЗАМЕНИТЕ: ИМЯ ВЛАДЕЛЬЦА ИЛИ КОМПАНИИ&gt;</code></pre><pre><code>1.0.0</code></pre><pre><code>1</code></pre><p>Если GitHub Pages будет опубликован по другому адресу (другой аккаунт, домен или имя репозитория), замените базовый адрес <code>https://apredator.github.io/renovation-estimate-docs/</code> во всех трёх ссылках, а также в файлах <code>PRIVACY_POLICY.md</code>, <code>APP_PRIVACY.md</code>, <code>RELEASE_CHECKLIST.md</code> и <code>SUPPORT.md</code>.</p><h3 id="9-1-review-contact-information-контакты-для-ревью">9.1. Review Contact Information (контакты для ревью)</h3><div class="table-wrap"><table>
+<thead><tr><th>Поле</th><th>Значение</th></tr></thead>
+<tbody><tr><td>Contact First Name</td><td><code>&lt;ЗАМЕНИТЕ: ИМЯ&gt;</code></td></tr>
+<tr><td>Contact Last Name</td><td><code>&lt;ЗАМЕНИТЕ: ФАМИЛИЯ&gt;</code></td></tr>
+<tr><td>Contact Phone Number</td><td><code>&lt;ЗАМЕНИТЕ: +7 900 000-00-00&gt;</code></td></tr>
+<tr><td>Contact Email</td><td><code>&lt;ЗАМЕНИТЕ: support@example.com&gt;</code></td></tr>
+<tr><td>Demo Account</td><td>Не требуется: в приложении нет входа, аккаунтов и платного контента</td></tr></tbody>
+</table></div><hr><h2 id="10-english-localization-en-us">10. English Localization (en-US)</h2><p>Если вы добавляете в App Store Connect английскую локализацию, используйте блок ниже. Основная локализация — русская, английская нужна только для полноты карточки.</p><h3 id="10-1-app-name-en-us-19-символов">10.1. App Name (en-US, 19 символов)</h3><pre><code>Renovation Estimate</code></pre><h3 id="10-2-subtitle-en-us-29-символов">10.2. Subtitle (en-US, 29 символов)</h3><pre><code>Materials &amp; budget calculator</code></pre><h3 id="10-3-promotional-text-en-us-159-символов">10.3. Promotional Text (en-US, 159 символов)</h3><pre><code>Renovation materials and budget on your phone: rooms, openings, waste, packages and cost. Fully offline, data stays on your device. CSV export and JSON backup.</code></pre><h3 id="10-4-keywords-en-us-96-символов">10.4. Keywords (en-US, 96 символов)</h3><pre><code>calculator,materials,wallpaper,tile,paint,flooring,area,cost,budget,shopping,list,offline,repair</code></pre><h3 id="10-5-description-en-us">10.5. Description (en-US)</h3><pre><code>Renovation Estimate turns room measurements into a clear materials list and a
+total cost.
+
+Enter the length, width and height of a room, mark doors and windows — the app
+calculates floor, wall and ceiling area plus the perimeter. Then add the work you
+need, and Renovation Estimate works out how much material is required with a
+waste allowance, how many packages, cans or rolls that means, and what it costs
+at your prices.
+
+WHAT THE APP DOES
+
+• Areas and perimeter. Floor, walls, ceiling and perimeter calculated from your
+  measurements.
+• Openings. Doors and windows are subtracted from wall area, so paint and
+  wallpaper are not calculated for surface you will not cover.
+• Work types and materials. Wall paint, wallpaper, tile, flooring and skirting
+  board, each with its own consumption rate.
+• Waste allowance. You set the percentage; the app increases consumption and
+  rounds up to whole packages.
+• Package count. Shows how many cans, rolls or packs to buy, not just how many
+  square metres you need.
+• Prices and cost. Enter the price per package to get the cost of each work item.
+• Project budget. The total for every room on one screen.
+• Shopping list. All materials combined into a single aggregated list, ready to
+  take to the store.
+• CSV export. The export button opens the iOS share sheet: open the file in
+  Numbers or Excel, save it to Files, or send it in a message. Separator ";",
+  UTF-8 with BOM, so Excel opens it correctly. The file has a project line
+  followed by the columns material, quantity, package and cost, and a final total
+  row.
+• Multiple rooms. Estimate a whole flat: living rooms, kitchen, bathroom,
+  hallway.
+• Sensible input limits. Dimensions up to 100 m, waste up to 100%, price up to
+  10,000,000 RUB; a decimal comma is accepted.
+
+YOUR DATA UNDER YOUR CONTROL
+
+• Autosave. Every edit is written to the device immediately: there is no separate
+  "Save" button and nothing is lost if you close the app right after a change.
+  Estimates created by version 1 are migrated automatically.
+• Backup. "Download backup" saves the whole project to a JSON file, and "Load from
+  file" restores it — for example on a new phone or after reinstalling. A damaged
+  file shows an error and changes nothing.
+• Delete data. "Delete data" clears everything on the device, asks for
+  confirmation and cannot be undone.
+• Version and status. The bottom of the main screen shows the app version, the
+  platform and a reminder that the estimate is approximate.
+
+WORKS OFFLINE
+
+The app works fully offline. It needs no network, no sign-up and no account —
+every calculation runs on your device.
+
+YOUR DATA STAYS WITH YOU
+
+Everything you enter — room names, measurements, materials and prices — is stored
+only on your device. The app sends no data to any server, contains no ads,
+analytics or third-party SDKs, and requests no access to camera, location,
+contacts or notifications. Data leaves the device only when you tap Export or
+Download backup yourself and choose where to send the file. Deleting the app
+deletes the data.
+
+WHO IT IS FOR
+
+For home renovation, for a foreman and for a small crew: estimate materials
+quickly, check a contractor's quote and avoid buying too much.
+
+Please note: the app calculates from your own measurements, consumption rates
+and prices. Store prices and actual consumption may differ — always confirm with
+your supplier.</code></pre><h3 id="10-6-what-s-new-en-us">10.6. What's New (en-US)</h3><pre><code>First release of Renovation Estimate.
+
+• Floor, wall and ceiling area plus room perimeter from your measurements.
+• Doors and windows are subtracted from wall area.
+• Wall paint, wallpaper, tile, flooring and skirting board.
+• Consumption with a waste allowance, rounded up to whole packages, cans and rolls.
+• Price per package, cost per work item and a total project budget.
+• Aggregated shopping list across all rooms.
+• CSV export of the shopping list via the iOS share sheet.
+• JSON backup of the whole project and restore from that file.
+• Autosave: every edit is written to the device immediately.
+• "Delete data" button with confirmation for a full reset on the device.
+• Fully offline: no sign-up, no ads, no analytics.</code></pre><hr><h2 id="11-почему-приложение-не-является-просто-сайтом">11. Почему приложение не является просто сайтом</h2><p>Раздел написан как аргументация для App Review в ответ на возможное замечание по Guideline 4.2 «Minimum Functionality»: приложения, которые представляют собой лишь упакованный в оболочку веб-сайт, отклоняются. Ниже — готовый текст для поля <strong>App Review Notes</strong> (сначала русская версия, затем английская — именно её обычно читает ревьюер).</p><h3 id="11-1-русская-версия-для-внутренних-материалов-и-переписки">11.1. Русская версия (для внутренних материалов и переписки)</h3><pre><code>«Смета ремонта» — не сайт и не обёртка вокруг веб-страницы. Приложение не
+открывает ни одного внешнего адреса, не использует встроенный браузер и не
+загружает контент из сети: сетевые запросы отсутствуют полностью.
+
+Функциональность реализована целиком на устройстве:
+— расчёт площадей пола, стен и потолка, а также периметра по размерам помещения;
+— вычитание проёмов (двери и окна) из площади стен;
+— расчёт расхода материалов по видам работ (покраска, обои, плитка, напольное
+  покрытие, плинтус) с настраиваемым запасом и округлением до целых упаковок,
+  банок и рулонов;
+— расчёт стоимости по ценам пользователя и общий бюджет проекта;
+— формирование агрегированного списка покупок по всем помещениям;
+— экспорт списка покупок в CSV через системное меню iOS «Поделиться»;
+— резервное копирование всего проекта в JSON-файл и восстановление из него по
+  действию пользователя.
+
+Данные хранятся локально в хранилище устройства. Регистрации, аккаунтов,
+серверной части и сетевого взаимодействия нет. Приложение работает в режиме
+«в самолёте» и после полного отключения сети, поэтому это самостоятельный
+офлайн-инструмент, а не витрина веб-сайта.</code></pre><h3 id="11-2-english-version-paste-into-app-review-notes">11.2. English version (paste into App Review Notes)</h3><pre><code>Renovation Estimate is not a website and not a wrapper around a web page. The app
+never opens an external URL, contains no in-app browser and loads no content from
+the network: it makes no network requests at all.
+
+All functionality is implemented on device:
+— floor, wall and ceiling area plus room perimeter from user measurements;
+— openings (doors and windows) subtracted from wall area;
+— material consumption per work type (wall paint, wallpaper, tile, flooring,
+  skirting board) with a configurable waste allowance and rounding up to whole
+  packages, cans and rolls;
+— cost calculation from the user's own prices and a total project budget;
+— an aggregated shopping list across all rooms;
+— CSV export of the shopping list via the iOS share sheet;
+— JSON backup of the whole project and restore from it, initiated by the user only.
+
+Data is stored locally on the device. There is no sign-up, no account, no backend
+and no network communication. The app is fully usable in Airplane Mode and with
+the network switched off, which makes it a standalone offline tool rather than a
+window onto a website.
+
+Review steps: launch the app, tap a room (or create one with "+"), enter length,
+width and height, then add doors/windows and work items to see calculations,
+budget, shopping list, CSV export via the share sheet, and the JSON backup in the
+"Project data" section.</code></pre><hr><h2 id="12-screenshots">12. Screenshots</h2><h3 id="12-1-обязательные-и-дополнительные-размеры">12.1. Обязательные и дополнительные размеры</h3><p>Apple принимает от 3 до 10 скриншотов на каждый размер. Загружайте реальные снимки интерфейса приложения, без «маркетинговых» подмены экранов.</p><div class="table-wrap"><table>
+<thead><tr><th>Набор</th><th>Размер (пиксели)</th><th>Обязательность</th></tr></thead>
+<tbody><tr><td>iPhone 6.9"</td><td>1290 × 2796 <strong>или</strong> 1320 × 2868</td><td>Обязательно (основной набор)</td></tr>
+<tr><td>iPhone 6.5"</td><td>1242 × 2688 <strong>или</strong> 1284 × 2778</td><td>Если требуется формой App Store Connect (для совместимости со старыми устройствами)</td></tr>
+<tr><td>iPad 13"</td><td>2064 × 2752</td><td>Обязательно: в iOS-проекте включена поддержка iPad (<code>TARGETED_DEVICE_FAMILY = "1,2"</code>). Если решите оставить только iPhone — набор не нужен</td></tr></tbody>
+</table></div><p>Правила: минимум 3, максимум 10 изображений на набор; для iPhone — вертикальная ориентация (портрет), формат PNG или JPEG, цветовое пространство sRGB, без прозрачности (alpha-канал не допускается), без «пустых» экранов и без текста, который дублирует описание не по делу.</p><h3 id="12-2-подписи-к-скриншотам-русский">12.2. Подписи к скриншотам (русский)</h3><p>Готовые подписи к первым трём кадрам (до 30–40 символов, помещаются в оверлей):</p><pre><code>Все помещения и бюджет проекта — на одном экране</code></pre><pre><code>Работы, расход с запасом и число упаковок</code></pre><pre><code>Готовый список покупок: экспорт в CSV</code></pre><p>Дополнительные кадры (если нужно 4–5 скриншотов):</p><pre><code>Площадь стен и проёмы считаются автоматически</code></pre><pre><code>Запас на подрезку и цена за упаковку</code></pre><pre><code>Данные проекта: резервная копия и удаление</code></pre><h3 id="12-3-чек-лист-съёмки">12.3. Чек-лист съёмки</h3><ul><li class="task"><span class="box" aria-hidden="true">☐</span><span>Собрана релизная сборка (<code>npm run build</code> или <code>npm run ios:sync</code>), а не dev-сервер: интерфейс и шрифты должны быть финальными.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Учтено, что приложение принудительно использует тёмную тему (<code>UIUserInterfaceStyle = Dark</code>), поэтому все кадры — тёмные; светлая тема в iOS-сборке сейчас недоступна.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>На каждом кадре есть реальные данные: заполнены 1–3 помещения, проёмы и работы; пустых экранов нет.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>На iPhone 6.9" сделаны кадры: список помещений с бюджетом, экран расчёта работ, список покупок, блок «Данные проекта» с версией приложения.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>При поддержке iPad (в проекте включены устройства iPhone и iPad) — отдельный набор для iPad 13" (2064 × 2752) с теми же экранами.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Экспорт изображений без alpha-канала: PNG (RGB, без прозрачности) или JPEG.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Разрешение точно совпадает с таблицей выше (ни масштабирования, ни полей «под устройство»).</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Рамки устройства не обязательны; если добавляете — они не должны искажать интерфейс и скрывать элементы.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Нет персональных данных и «чужих» брендов на кадрах; название приложения и подписи не противоречат описанию.</span></li><li class="task"><span class="box" aria-hidden="true">☐</span><span>Проверено, что на скриншотах нет функций, которых нет в приложении (никаких «облаков», «синхронизации», «ИИ», «PDF» и печати).</span></li></ul><hr><h2 id="13-полный-список-плейсхолдеров">13. Полный список плейсхолдеров</h2><p>Замените <strong>все</strong> строки ниже перед отправкой. Одинаковые значения должны совпадать во всех файлах <code>docs/</code>.</p><div class="table-wrap"><table>
+<thead><tr><th>Плейсхолдер</th><th>Где используется</th><th>Что подставить</th></tr></thead>
+<tbody><tr><td><code>&lt;ЗАМЕНИТЕ: ИМЯ ВЛАДЕЛЬЦА ИЛИ КОМПАНИИ&gt;</code></td><td>Copyright в App Store Connect, <code>PRIVACY_POLICY.md</code>, <code>SUPPORT.md</code></td><td>Юридическое имя владельца прав или название компании</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: support@example.com&gt;</code></td><td>Support URL/контакты ревью, <code>PRIVACY_POLICY.md</code>, <code>SUPPORT.md</code></td><td>Реальный адрес поддержки</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: com.apredator.renovationestimate&gt;</code></td><td>Bundle ID в Xcode и App Store Connect, <code>RELEASE_CHECKLIST.md</code></td><td>Свой уникальный bundle identifier</td></tr>
+<tr><td><del><code>https://apredator.github.io/renovation-estimate-docs/</code></del></td><td>Support/Marketing/Privacy URL, <code>PRIVACY_POLICY.md</code>, <code>SUPPORT.md</code>, <code>RELEASE_CHECKLIST.md</code></td><td><strong>Уже подставлено</strong> по схеме GitHub Pages (репозиторий <code>apredator/renovation-estimate</code>). Меняйте только при своём домене или другом имени репозитория</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ИМЯ РАЗРАБОТЧИКА/ПРОДАВЦА В APP STORE&gt;</code></td><td>Seller / Developer Name</td><td>Имя продавца, как оно будет показано в App Store</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ИМЯ&gt;</code></td><td>Contact First Name для ревью</td><td>Имя контактного лица</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ФАМИЛИЯ&gt;</code></td><td>Contact Last Name для ревью</td><td>Фамилия контактного лица</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: +7 900 000-00-00&gt;</code></td><td>Contact Phone Number для ревью</td><td>Телефон контактного лица</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ДАТА ВСТУПЛЕНИЯ В СИЛУ&gt;</code></td><td><code>PRIVACY_POLICY.md</code>, <code>SUPPORT.md</code></td><td>Дата публикации политики конфиденциальности</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ССЫЛКА НА ПРИЛОЖЕНИЕ В APP STORE&gt;</code></td><td><code>SUPPORT.md</code></td><td>Ссылка на карточку приложения после публикации</td></tr>
+<tr><td><del><code>&lt;ЗАМЕНИТЕ: TEAM ID&gt;</code></del></td><td><code>ios/App/App.xcodeproj/project.pbxproj</code> (<code>DEVELOPMENT_TEAM</code>), <code>ExportOptions.plist</code></td><td><strong>Уже подставлено:</strong> <code>5W2254G25J</code></td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: KEY ID&gt;</code></td><td><code>RELEASE_CHECKLIST.md</code> (ключ App Store Connect API, <code>--apiKey</code>)</td><td>Key ID ключа <code>.p8</code> из App Store Connect → Users and Access → Integrations</td></tr>
+<tr><td><code>&lt;ЗАМЕНИТЕ: ISSUER ID&gt;</code></td><td><code>RELEASE_CHECKLIST.md</code> (<code>--apiIssuer</code>)</td><td>Issuer ID того же ключа App Store Connect API</td></tr></tbody>
+</table></div>
+</main>
+<footer class="site">
+  <p>Смета ремонта — калькулятор материалов для ремонта. Данные хранятся только на устройстве.</p>
+  <p>Поддержка: <code>&lt;ЗАМЕНИТЕ: support@example.com&gt;</code></p>
+</footer>
+</body>
+</html>

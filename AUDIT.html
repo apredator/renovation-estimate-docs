@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аудит — Смета ремонта</title>
+<meta name="description" content="Документы приложения «Смета ремонта»: политика конфиденциальности, поддержка, материалы для App Store.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">Смета ремонта</a>
+  <nav>
+        <a href="index.html">Документы</a>
+        <a href="PRIVACY_POLICY.html">Политика конфиденциальности</a>
+        <a href="SUPPORT.html">Поддержка</a>
+        <a href="AUDIT.html">Аудит</a>
+        <a href="PUBLISHING.html">Публикация</a>
+        <a href="ACCOUNT_SETUP.html">Настройка аккаунта Apple</a>
+        <a href="RELEASE_CHECKLIST.html">Чек-лист релиза</a>
+        <a href="APP_STORE_LISTING.html">Карточка приложения</a>
+        <a href="APP_PRIVACY.html">App Privacy</a>
+        <a href="SCREENSHOTS.html">Скриншоты</a>
+  </nav>
+</header>
+<main>
+<p>Дата: сентябрь 2026. Ревизия кода: ветка по умолчанию, коммиты <code>4552b0f</code> (стили) и <code>d7b2913</code> (MVP). Версия после работ: <strong>1.0.0 (build 1)</strong>, bundle id <code>com.apredator.renovationestimate</code>.</p><p>Документ описывает: что представляло собой приложение до работ, какие проблемы мешали публикации в App Store, что исправлено и что осталось сделать силами владельца аккаунта разработчика.</p><hr><h2 id="1-краткое-резюме">1. Краткое резюме</h2><div class="table-wrap"><table>
+<thead><tr><th>Вопрос</th><th>Ответ</th></tr></thead>
+<tbody><tr><td>Что это</td><td>Офлайн-калькулятор материалов для ремонта: комнаты, проёмы, работы, закупка и бюджет</td></tr>
+<tr><td>Технологии</td><td>React 19 + TypeScript 6 + Vite 8, сборка в статический бандл</td></tr>
+<tr><td>Было ли готово к App Store до работ</td><td><strong>Нет.</strong> Это было веб-приложение без нативной оболочки, без иконок и с недостоверным заявлением «Работает офлайн»</td></tr>
+<tr><td>Стало ли готово к отправке</td><td><strong>Технически да.</strong> iOS-проект собирается (проверено), метаданные и юридические страницы подготовлены. Остались шаги, требующие аккаунта Apple и ваших данных (подпись, скриншоты, URL)</td></tr>
+<tr><td>Главный риск</td><td>Правило App Review 4.2 (Minimum Functionality): Apple не любит приложения-обёртки вокруг сайта. Риск снижен, но не устранён — см. §6</td></tr></tbody>
+</table></div><hr><h2 id="2-что-было-в-приложении-до-работ">2. Что было в приложении до работ</h2><ul><li>Один React-компонент <code>src/App.tsx</code> на 1010 строк: вся доменная логика (площади, упаковки, стоимость), состояние и разметка в одном файле.</li><li>Сохранение в <code>localStorage</code> одним ключом <code>renovation-estimate-projects-v1</code>.</li><li>Экспорт списка покупок в CSV через <code>&lt;a download&gt;</code>, «Сохранить PDF» через <code>window.print()</code>.</li><li>Шаблонные остатки Vite: <code>src/App.css</code> (184 строки, не подключался), <code>src/assets/hero.png</code>, <code>vite.svg</code>, <code>react.svg</code>, спрайт <code>public/icons.svg</code> с иконками Bluesky и Discord, favicon с логотипом Vite, <code>&lt;title&gt;renovation-estimate&lt;/title&gt;</code>, <code>&lt;html lang="en"&gt;</code>.</li><li>Заявление «Работает офлайн» в шапке — при отсутствии web app manifest и service worker.</li><li>Тестов не было, линтер проходил без замечаний (3 файла).</li></ul><hr><h2 id="3-найденные-проблемы">3. Найденные проблемы</h2><p>Приоритеты: <strong>P0</strong> — блокирует публикацию, <strong>P1</strong> — заметно для ревьюера или пользователя, <strong>P2</strong> — качество и сопровождение.</p><h3 id="p0-блокеры-публикации">P0 — блокеры публикации</h3><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>Проблема</th><th>Почему блокер</th><th>Что сделано</th></tr></thead>
+<tbody><tr><td>1</td><td>Нет нативной оболочки: только веб-приложение</td><td>App Store не принимает сайты; нужен бинарник для iOS</td><td>Добавлен Capacitor 8.5.2 (Swift Package Manager, без CocoaPods), создан <code>ios/App/App.xcodeproj</code>, сборка для симулятора проходит</td></tr>
+<tr><td>2</td><td>Нет иконки приложения и splash-экрана</td><td>Без AppIcon 1024×1024 и LaunchScreen сборку не примут</td><td><code>scripts/generate-icons.mjs</code> детерминированно рисует знак «⌗» и фоны: <code>assets/*</code> + <code>public/icons/*</code>; <code>@capacitor/assets</code> разложил их в <code>Assets.xcassets</code> (AppIcon + Splash, включая dark-варианты)</td></tr>
+<tr><td>3</td><td>Заявление «Работает офлайн» было ложным: нет manifest и service worker</td><td>Вводит в заблуждение, ломает офлайн-сценарий, заявленный в описании</td><td><code>public/manifest.webmanifest</code>, <code>scripts/sw-template.js</code> + <code>scripts/generate-sw.mjs</code> (список хешированных файлов подставляется на сборке), регистрация SW только в веб-сборке</td></tr>
+<tr><td>4</td><td>Экспорт CSV не работал бы в WKWebView (<code>&lt;a download&gt;</code> там не поддерживается)</td><td>Ключевая функция приложения оказалась бы нерабочей на iPhone</td><td><code>src/lib/share.ts</code>: Capacitor Filesystem + Share в нативном приложении, Web Share API → скачивание в браузере</td></tr>
+<tr><td>5</td><td>«Сохранить PDF» через <code>window.print()</code> в WKWebView — пустое действие</td><td>Мёртвая кнопка = отказ по 2.1 (App Completeness)</td><td>Кнопка печати показывается только там, где печать реально работает (веб); в iOS-приложении смета экспортируется в CSV через системное «Поделиться». Обещание PDF убрано из всех документов и листинга</td></tr>
+<tr><td>6</td><td>Данные могли «отравиться»: <code>Number('')</code> → 0, <code>Number('-')</code> → <code>NaN</code>, отрицательные размеры давали отрицательный периметр</td><td>Некорректная смета и/или предупреждения React</td><td><code>NumberField</code> хранит черновик ввода, значение клампится; <code>getMetrics</code> приводит размеры и проёмы к неотрицательным; <code>normalizeProject</code> чинит/отбрасывает битые данные</td></tr>
+<tr><td>7</td><td>Смена схемы данных ломала бы сохранённый проект (версия ключа не проверялась)</td><td>Потеря данных пользователя при обновлении</td><td>Чтение обоих ключей (v1 и v2), полная валидация и нормализация при загрузке, лимиты значений</td></tr></tbody>
+</table></div><h3 id="p1-заметно-для-ревьюера-и-пользователя">P1 — заметно для ревьюера и пользователя</h3><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>Проблема</th><th>Что сделано</th></tr></thead>
+<tbody><tr><td>8</td><td><code>package.json</code> версии <code>0.0.0</code>, в приложении версии нет</td><td>Версия 1.0.0 в <code>package.json</code>, <code>MARKETING_VERSION = 1.0.0</code>, <code>CURRENT_PROJECT_VERSION = 1</code>; версия и платформа показаны в блоке «Данные проекта»</td></tr>
+<tr><td>9</td><td>Не было ни резервных копий, ни удаления данных</td><td>Экспорт/импорт JSON-копии проекта и подтверждаемое «Удалить данные» — это же требование прозрачности в политике конфиденциальности</td></tr>
+<tr><td>10</td><td>Название и язык страницы — шаблонные (<code>renovation-estimate</code>, <code>lang="en"</code>)</td><td><code>lang="ru"</code>, осмысленный <code>&lt;title&gt;</code> и <code>description</code>, <code>theme-color</code>, <code>format-detection=telephone=no</code> (чтобы размеры и цены не превращались в ссылки на звонок)</td></tr>
+<tr><td>11</td><td>Не учтены «челка» и домашний индикатор, не задан тёмный интерфейс</td><td><code>env(safe-area-inset-*)</code> для шапки и низа страницы, <code>UIUserInterfaceStyle = Dark</code> (нет белой вспышки), <code>viewport-fit=cover</code></td></tr>
+<tr><td>12</td><td>Интерактивные элементы меньше 44 pt, у иконочных кнопок нет подписей</td><td>Минимальные размеры 44 pt для кнопок, переключателей и вкладок; <code>aria-label</code> для иконочных кнопок и полей; поддержка <code>prefers-reduced-motion</code></td></tr>
+<tr><td>13</td><td>При каждой загрузке в App Store Connect спрашивали бы про экспортное шифрование</td><td><code>ITSAppUsesNonExemptEncryption = false</code> в <code>Info.plist</code> (приложение не использует шифрование)</td></tr>
+<tr><td>14</td><td><code>UIRequiredDeviceCapabilities = armv7</code> — наследие старых шаблонов</td><td>Заменено на <code>arm64</code></td></tr>
+<tr><td>15</td><td><code>CFBundleDevelopmentRegion = en</code> при полностью русском интерфейсе</td><td>Заменено на <code>ru</code></td></tr></tbody>
+</table></div><h3 id="p2-качество-и-сопровождение">P2 — качество и сопровождение</h3><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>Проблема</th><th>Что сделано</th></tr></thead>
+<tbody><tr><td>16</td><td>Вся логика в одном компоненте, тестов нет</td><td>Логика вынесена в <code>src/lib/estimate.ts</code>, хранение — в <code>src/lib/storage.ts</code>, экспорт — в <code>src/lib/share.ts</code>; 13 модульных тестов на <code>node:test</code> (расчёты, округление вверх, объединение списка покупок, CSV, миграция данных)</td></tr>
+<tr><td>17</td><td>Мёртвые файлы шаблона</td><td>Удалены <code>src/App.css</code>, <code>src/assets/*</code>, <code>public/icons.svg</code></td></tr>
+<tr><td>18</td><td>Дублирующий импорт <code>index.css</code> (в <code>main.tsx</code> и <code>App.tsx</code>)</td><td>Один импорт в <code>main.tsx</code></td></tr>
+<tr><td>19</td><td><code>uid()</code> на <code>Math.random()</code></td><td><code>crypto.randomUUID()</code> с откатом</td></tr>
+<tr><td>20</td><td>Нет автоматических предполётных проверок</td><td><code>npm run verify</code> — линтер, типы, тесты, сборка, проверка ассетов и офлайн-проверки; отдельно <code>verify:assets</code> и <code>verify:offline</code></td></tr>
+<tr><td>21</td><td>Не было проверки, что сборка офлайновая</td><td><code>scripts/verify-offline.mjs</code> проверяет ссылки из HTML, покрытие service worker, отсутствие source map, отсутствие внешних запросов и обязательные мета-теги iOS</td></tr>
+<tr><td>22</td><td>Source map в продакшене</td><td><code>sourcemap: false</code></td></tr></tbody>
+</table></div><hr><h2 id="4-что-изменено-в-репозитории">4. Что изменено в репозитории</h2><div class="table-wrap"><table>
+<thead><tr><th>Файл / каталог</th><th>Изменение</th></tr></thead>
+<tbody><tr><td><code>src/lib/estimate.ts</code></td><td>Новая доменная логика: типы, метрики, расчёт работ, список покупок, CSV, нормализация данных, лимиты</td></tr>
+<tr><td><code>src/lib/storage.ts</code></td><td>Загрузка/сохранение проекта, проверка доступности хранилища, JSON-экспорт и импорт с понятными ошибками</td></tr>
+<tr><td><code>src/lib/share.ts</code></td><td>Экспорт: Capacitor Share + Filesystem на iOS, Web Share API и скачивание в браузере; определение доступности печати</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>Интерфейс переведён на новую логику, добавлены блок «Данные проекта», сообщения о статусе, версия, доступность</td></tr>
+<tr><td><code>src/main.tsx</code></td><td>Регистрация service worker (только веб-сборка, не в Capacitor)</td></tr>
+<tr><td><code>src/index.css</code></td><td>Safe-area, стили новых блоков, размеры 44 pt, <code>prefers-reduced-motion</code></td></tr>
+<tr><td><code>index.html</code></td><td><code>lang="ru"</code>, метаданные, manifest, apple-touch-icon, PWA-теги iOS</td></tr>
+<tr><td><code>public/manifest.webmanifest</code></td><td>Новый файл: имя, иконки (включая maskable), цвета, standalone, portrait</td></tr>
+<tr><td><code>public/icons/*</code>, <code>public/favicon.svg</code></td><td>Новый фирменный набор иконок</td></tr>
+<tr><td><code>scripts/generate-icons.mjs</code></td><td>Генератор иконок и splash без внешних зависимостей</td></tr>
+<tr><td><code>scripts/sw-template.js</code>, <code>scripts/generate-sw.mjs</code></td><td>Шаблон и сборка service worker с версией кэша</td></tr>
+<tr><td><code>scripts/verify-assets.mjs</code>, <code>scripts/verify-offline.mjs</code></td><td>Предполётные проверки графики и офлайн-сборки</td></tr>
+<tr><td><code>assets/*</code></td><td>Исходники иконки, foreground/background и splash (2732×2732)</td></tr>
+<tr><td><code>capacitor.config.ts</code>, <code>ios/**</code></td><td>Нативная оболочка iOS: bundle id, имя «Смета», тёмный фон, проект Xcode с SPM-зависимостями</td></tr>
+<tr><td><code>ios/App/App/Info.plist</code></td><td>Экспортное шифрование, тёмный интерфейс, регион <code>ru</code>, <code>arm64</code></td></tr>
+<tr><td><code>tests/estimate.test.ts</code>, <code>tsconfig.test.json</code></td><td>Тесты и их конфигурация TypeScript</td></tr>
+<tr><td><code>package.json</code></td><td>Версия 1.0.0, описание, скрипты сборки, проверок и работы с iOS</td></tr>
+<tr><td><code>.gitignore</code></td><td>Локальный кэш npm и артефакты сборки Xcode/SPM</td></tr>
+<tr><td><code>docs/**</code></td><td>Материалы для App Store Connect: листинг, политика конфиденциальности, App Privacy, чек-лист релиза, страница поддержки</td></tr></tbody>
+</table></div><hr><h2 id="5-проверки-которые-пройдены">5. Проверки, которые пройдены</h2><pre><code>npm run lint        → 0 warnings, 0 errors
+npm run typecheck   → tsc -b без ошибок (приложение, конфиг, тесты)
+npm test            → 13 tests, 13 pass, 0 fail
+npm run build       → dist: JS 251,9 КБ (79 КБ gzip), CSS 10,1 КБ, SW 2,5 КБ
+npm run verify:assets  → все иконки нужных размеров, без прозрачности, знак по центру
+npm run verify:offline → внешних запросов нет, service worker кэширует все файлы
+xcodebuild … -destination 'generic/platform=iOS Simulator' build → ** BUILD SUCCEEDED **</code></pre><p>Что проверено в собранном <code>App.app</code>: <code>CFBundleDisplayName</code> = «Смета», <code>CFBundleShortVersionString</code> = 1.0.0, <code>CFBundleVersion</code> = 1, <code>ITSAppUsesNonExemptEncryption</code> = false, скомпилированный набор иконок (<code>Assets.car</code>, <code>AppIcon60x60@2x.png</code>, <code>AppIcon76x76@2x~ipad.png</code>), веб-ассеты внутри <code>public/</code>, манифесты приватности <code>PrivacyInfo.xcprivacy</code> из <code>Capacitor.framework</code> и <code>Cordova.framework</code>.</p><p>Дополнительно приложение установлено и запущено в симуляторе iOS 26.5 (iPhone 17 Pro Max 6,9″ и iPad Pro 13″): интерфейс отрисовался, сняты 6 скриншотов для App Store в требуемых размерах (1320 × 2868 и 2064 × 2752) — файлы в <code>screenshots/</code>, описание в <code>docs/SCREENSHOTS.md</code>. Признак отрисовки (не пустой и не белый экран) проверяется скриптом <code>scripts/verify-screenshot.mjs</code>.</p><hr><h2 id="6-риски-и-ограничения">6. Риски и ограничения</h2><ol><li><strong>App Review 4.2 (Minimum Functionality).</strong> Приложение по-прежнему построено на веб-технологиях внутри Capacitor. Формально это не «просто сайт»: нет ни одного сетевого запроса, всё считается на устройстве, есть системный экспорт файлов и офлайн-работа, — но решение остаётся за ревьюером. В <code>docs/APP_STORE_LISTING.md</code> подготовлены Review Notes с этим обоснованием. Если отказ придёт, разумный следующий шаг — добавить нативные функции (уведомления-напоминания о закупке, сканирование чеков, синхронизация с iCloud).</li><li><strong>Данные только в WebView.</strong> <code>localStorage</code> хранится в контейнере приложения и удаляется вместе с ним; iOS теоретически может очистить website data при нехватке места. Поэтому в приложении есть резервная копия, а в политике конфиденциальности прямо сказано, что серверного хранения нет.</li><li><strong>Цены ориентировочные.</strong> Значения по умолчанию (краска 2490 ₽, упаковка плитки 2190 ₽ и т. д.) заданы как примеры и редактируются пользователем. В интерфейсе и в описании это указано.</li><li><strong>Только русский интерфейс.</strong> Английская локализация подготовлена для метаданных, но сам интерфейс русский. Решение: либо публиковать с русской локализацией и не заявлять английскую, либо переводить интерфейс (в аудите это отмечено как открытый вопрос).</li><li><strong>iPad включён</strong> (<code>TARGETED_DEVICE_FAMILY = 1,2</code>). Если iPad не нужен, поставьте <code>1</code> — тогда не потребуются скриншоты для iPad 13″. Интерфейс адаптивный и на iPad работает.</li><li><strong>Два дополнительных JS-чанка</strong> (<code>esm-*.js</code>, <code>web-*.js</code>) — это веб-реализации плагинов Share и Filesystem. Они содержат <code>XMLHttpRequest</code>/<code>fetch</code>, но в нативном приложении не исполняются; проверка <code>verify:offline</code> показывает их как предупреждение, а не как ошибку.</li></ol><hr><h2 id="7-что-осталось-сделать-владельцу-аккаунта">7. Что осталось сделать владельцу аккаунта</h2><p>Полный порядок действий — в <code>docs/RELEASE_CHECKLIST.md</code>. Кратко:</p><ol><li>Членство в Apple Developer Program и Team ID.</li><li>Подтвердить bundle id <code>com.apredator.renovationestimate</code> (или заменить на свой в <code>capacitor.config.ts</code>, <code>project.pbxproj</code> и <code>docs/</code>).</li><li>Опубликовать политику конфиденциальности и страницу поддержки (готовы в <code>docs/</code>), получить два публичных URL.</li><li>Заполнить плейсхолдеры (<code>&lt;ЗАМЕНИТЕ: …&gt;</code>): имя владельца, support-почта, copyright.</li><li>Загрузить готовые скриншоты 6,9″ и iPad 13″ из <code>screenshots/</code> (см. <code>docs/SCREENSHOTS.md</code>) и вставить метаданные из <code>docs/APP_STORE_LISTING.md</code>.</li><li>Ответить на опросник App Privacy по <code>docs/APP_PRIVACY.md</code> («Data Not Collected»).</li><li>Собрать архив в Xcode, загрузить в App Store Connect, прогнать TestFlight и отправить на ревью.</li></ol>
+</main>
+<footer class="site">
+  <p>Смета ремонта — калькулятор материалов для ремонта. Данные хранятся только на устройстве.</p>
+  <p>Поддержка: <code>&lt;ЗАМЕНИТЕ: support@example.com&gt;</code></p>
+</footer>
+</body>
+</html>
