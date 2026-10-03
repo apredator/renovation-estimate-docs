@@ -103,6 +103,10 @@ li.task .box { color: var(--muted); flex: 0 0 auto; }
 
 del { color: var(--muted); }
 
+img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+img[alt="Иконка приложения"] { width: 96px; height: 96px; margin: 0 0 8px; }
+img[alt="Экран приложения"] { border: 1px solid var(--border); max-height: 640px; width: auto; margin: 18px auto; }
+
 footer.site {
   max-width: 780px;
   margin: 0 auto;
